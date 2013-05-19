@@ -1,0 +1,337 @@
+=head1 NAME
+
+Mecom - A Perl package for protein contact interfaces evolutive analysis
+
+=head1 VERSION
+
+Version 1.01
+
+=head1 SYNOPSIS
+
+    # Create the object
+    my $coe = Mecom->new(
+                                    pdb         => 'pdb/files/path/2occ.pdb',
+                                    alignment   => 'aln/files/path/chainM.aln',
+                                    chain       => 'M',
+                                    );
+    # Run calcs
+    $coe->run;
+    
+    # Write HTML Report
+    open REP, ">report.html";
+    print REP $coe->run_report;
+    close REP;
+
+=head1 DESCRIPTION
+
+This module integrates a workflow aimed to address the evolvability of the
+contact interfaces within a protein complex. The method C<Mecom-E<gt>run>
+launchs the whole analysis. Also, such workflow is divided into the following steps:
+
+=over 4
+
+=item B<Step 1>, Structural analysis: C<Mecom-E<gt>run_struct>
+
+=item B<Step 2>, Sub-sets filtering: C<Mecom-E<gt>run_filtering>
+
+=item B<Step 3>, Sub-alignments building: C<Mecom-E<gt>run_subalign>
+
+=item B<Step 4>, Evolutionary calcs: C<Mecom-E<gt>run_yang>
+
+=item B<Step 5>, Statistical analysis: C<Mecom-E<gt>run_stats1>
+
+=back
+
+A detailed explanation about these methods is reported below.
+
+=head1 REQUERIMENTS
+
+=over 4
+
+=item Bioperl
+
+=item Bioperl-run
+
+=item PAML
+
+=item DSSP
+
+=back
+
+=head1 CONSTRUCTOR
+
+=head2 new()
+
+    $obj = Mecom->new(%input_data);
+
+The new class method construct a new L<Mecom> object. The returned
+object can be used to perform several evolutive analysis. C<new> accepts the
+following parameters in an input hash as above used C<%input_data>:
+
+=over 4
+
+=item * B<pdbfilepath> (required if B<contactfile> is missing)
+
+A valid pdb file path to be opened for reading.
+
+=item * B<contactfilepath> (required if B<pdb> is missing)
+
+A valid contact file path. This file must contain the structural information
+retrieved by a previous analysis on the same chain
+
+=item * B<alignfilepath> (required)
+
+A valid DNA multiple alignment file path. The alignment must correspond with the specified
+chain and must be at least as long as the pdb chain (x3)
+
+=item * B<chain> (required)
+
+A given subunits within the studied complex
+
+=item * B<pth> (default 4 Angstroms)
+
+Proximity threshold. The maximun distance between two residues to be considered
+as a contact pair
+
+=item * B<sth> (default 0.05)
+
+Exposure threshold. The maximun exposure fraction to be considered as a buried
+residue.
+
+=item * B<sthmargin> (default 0)
+
+An error margin for B<sth>. For instance: if is set to 0.01, residues with exposure
+higher than 0.06 will be considered as exposed, those with exposure lower than
+0.04 will be buried and those residues with exposure between 0.04 and 0.06 will
+not be considered
+
+=item * B<contactwith>
+
+A string with valid chain identificators separated by commas:
+
+    $contactwith = "A,B,D";
+    
+if it is set, the program will only consider as contact residues those in close
+proximity with the specified chains. The others will be excluded.
+
+=item * B<informat> (default fasta)
+
+Specify the format of the input alignment file.  Supported formats include fasta,
+genbank, embl, swiss (SwissProt), Entrez Gene and tracefile formats
+such as abi (ABI) and scf. There are many more, for a complete listing
+see the SeqIO HOWTO (L<http://bioperl.open-bio.org/wiki/HOWTO:SeqIO>).
+
+If no format is specified and a filename is given then the module will
+attempt to deduce the format from the filename suffix. If there is no
+suffix that Bioperl understands then it will attempt to guess the
+format based on file content. If this is unsuccessful then SeqIO will 
+throw a fatal error.
+
+The format name is case-insensitive: 'FASTA', 'Fasta' and 'fasta' are
+all valid.
+
+Currently, the tracefile formats (except for SCF) require installation
+of the external Staden "io_lib" package, as well as the
+Bio::SeqIO::staden::read package available from the bioperl-ext
+repository.
+
+=item * B<oformat> (default clustalw)
+
+Specify the format of the output sub-alignments. As above.
+
+=item * B<gc> (default 0)
+
+The genetic code. The attribute must be one of the following integers, which
+correspond with the indicated genetic code:
+    
+    0: Standar
+    1: Mammailan mitochondrial
+    2: Yeast mitochondrial
+    3: Mold mitochondiral
+    4: Invertebrate mitochondrial
+    5: Ciliate nuclear
+    6: Echinoderm mitochondrial
+    7: Euplotid mitochondrial
+    8: Alternative yeast nuclear
+    9: Ascidian mitochondrial
+    10: Blepharisma nuclear
+    
+These codes correspond to transl_table 1 to 11 of GENEBANK
+
+=item * B<ocontact> (default ocontact)
+
+A valid file path to write the structural results
+
+=item * B<dsspbin> (default dssp)
+
+The path to the DSSP binary
+
+=back
+
+=head1 MAIN METHODS
+
+=head2 run()
+
+    Title   : run
+    Usage   : $obj->run
+    Function: Launch the whole workflow analysis
+    Returns : 
+    Args    :
+
+=head2 run_struct()
+
+    Title   : run_struct
+    Usage   : $obj->run_struct
+    Function: Launch structural analysis and stores the result in the attribute:
+              "structdata"
+    Returns : True if success
+    Args    :
+
+=head2 run_filtering()
+
+    Title   : run_struct
+    Usage   : $obj->run_filtering
+    Function: Build different categories of sets (Contact, NonContact ...)
+              and set the attribute "lists" with the result
+    Returns : True if success
+    Args    :
+
+=head2 run_subalign()
+
+    Title   : run_subalign
+    Usage   : $obj->run_subalign
+    Function: Build new alignments from the input chain alignment and the categories
+              built by run_filtering method. Stores the result into "subalns" attribute
+    Returns : True if success
+    Args    :
+
+=head2 run_yang()
+
+    Title   : run_yang
+    Usage   : $obj->run_yang
+    Function: Launch PAML for each alignment stored at "sub_alns" attribute and
+              store the results into "paml_res"
+    Returns : True if success
+    Args    :
+
+=head2 run_stats1()
+
+    Title   : run_stats1
+    Usage   : $obj->run_stats1
+    Function: Run a Z-Test with the obtained evolutionary data and store the
+              results into "stats" attribute
+    Returns : True if success
+    Args    :
+
+=head2 run_report()
+
+    Title   : run_report
+    Usage   : $obj->run_report
+    Function: Write a HTML report
+    Returns : [String] HTML report with the results and input data
+    Args    :
+
+=head1 AUXILIAR METHODS
+
+=head2 cat_aln()
+
+    Title   : run_report
+    Usage   : $obj->cat_aln(@alns)
+    Function: Concatenates alignment objects. Sequences are identified by id.
+             An error will be thrown if the sequence ids are not unique in the
+             first alignment. If any ids are not present or not unique in any
+             of the additional alignments then those sequences are omitted from
+             the concatenated alignment, and a warning is issued. An error will
+             be thrown if any of the alignments are not flush, since
+             concatenating such alignments is unlikely to make biological
+             sense.
+    Returns : A unique Bio::SimpleAlign object
+    Args    : A list of Bio::SimpleAlign objects
+
+=head1 PROCESSED DATA STORAGE
+
+Once each analysis has been performed, the resulting data is stored in other
+setable attributes:
+
+=over 4
+
+=item * B<structdata>
+
+[Array] A table with the structural information calculated by Mecom::Contact.pm
+and DSSP
+
+=item * B<lists>
+
+[Hash] Each item contains a list of number corresponding with each type of residue.
+The key for a given item is the name for the category.
+
+    Contact
+    NonContact
+    ExposedNonContact
+    ContactWith_$specified_chains [...]
+
+=item * B<subalns>
+
+[Hash] Each item contains a sub-alignment for a given category (see above)
+
+=item * B<pamlres>
+
+[Hash] Results for evolutive analysis. Each item contains the results for a
+given sub-alignment (see above)
+
+=item * B<stats>
+
+[Hash] Statistical results
+
+=back
+
+=head1 SECONDARY METHODS (but not less important)
+
+All attributes are accesible and mutable from methods called get_attribute and
+set_attribute, respectively. For example:
+    
+    # Set the proximity threshold ("pth") to 3 Angstroms
+    $obj->set_pth(3);
+    # Print the current value of the attribute "pth"
+    print $obj->get_pth;
+    
+The processed data is also stored in attributes. Thus, this kind of methods can
+also be used to access and modify the results.
+
+=head1 AUTHOR - Hector Valverde
+
+Hector Valverde, C<< <hvalverde@uma.es> >>
+
+=head1 CONTRIBUTORS
+
+Juan Carlos Aledo, C<< <caledo@uma.es> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to C<bug-Mecom-Complex at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mecom-Complex>.
+I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+
+=head1 SUPPORT
+
+This module is the program core of MECOM Perl program. Further information about
+this project is available at:
+
+    http://mecom.hval.es/
+
+You can find documentation for this module with the UNIX man command.
+
+    man Mecom
+
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2013 Hector Valverde and Juan Carlos Aledo.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.
+
+=cut
