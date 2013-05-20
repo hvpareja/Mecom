@@ -50,7 +50,7 @@ MANUAL INSTALLATION
 
 First, download the current version from author's website or from a public repository. Next, uncompress the tar file:
 
-$ tar -xvzf mecom-0.XX.tar-gz
+$ tar -xvzf Mecom-1.XX.tar-gz
 
 At least, to install this module, run the following commands:
 
@@ -63,7 +63,7 @@ GIT INSTALLATION
 
 Github is used as public repository for MECOM. Instead download the compressed file before proceed the manual installation, you can clone the current version to your system as follow:
 
-$ git clone git@github.com:hvpareja/mecom.git
+$ git clone git@github.com:hvpareja/Mecom.git
 
 CPAN INSTALLATION
 
@@ -73,7 +73,7 @@ $ sudo perl -MCPAN -e 'install Mecom'
 
 or
 
-$ sudo cpan mecom
+$ sudo cpan Mecom
 
 SUPPORT AND DOCUMENTATION
 
