@@ -1,3 +1,4 @@
+bin/mecom
 lib/Mecom.pm
 lib/Mecom/Align/Subset.pm
 lib/Mecom/Contact.pm

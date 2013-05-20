@@ -19,7 +19,7 @@ package Mecom;
 use 5.006;
 use strict;
 no strict "refs";
-our $VERSION = '1.08';
+our $VERSION = '1.09';
 
 # Own modules
 use Mecom::Contact; 
@@ -537,7 +537,7 @@ Mecom - A Perl module for protein contact interfaces evolutive analysis
 
 =head1 VERSION
 
-Version 1.08
+Version 1.09
 
 =head1 SYNOPSIS
 
