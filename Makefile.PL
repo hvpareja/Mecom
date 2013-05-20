@@ -12,7 +12,7 @@ WriteMakefile(
     PL_FILES         => {},
     EXE_FILES 	     => ['bin/mecom'],
     MAN3PODS         => {
-	"lib/Mecom.pm" => "blib/man3/mecom.3pm"
+	"bin/mecom" => "blib/man3/mecom.3pm"
     },
     MIN_PERL_VERSION => 5.006,
     CONFIGURE_REQUIRES => {
