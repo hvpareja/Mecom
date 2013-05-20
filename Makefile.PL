@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME             => 'Mecom',
     AUTHOR           => q{Hector Valverde <hvalverde@uma.es>},
-    VERSION_FROM     => 'bin/mecom',
+    VERSION_FROM     => 'lib/Mecom.pm',
     ABSTRACT_FROM    => 'lib/Mecom.pm',
     LICENSE          => 'Perl_5',
     PL_FILES         => {},

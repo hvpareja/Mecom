@@ -1,5 +1,4 @@
-#!/usr/bin/perl
-our $VERSION = 1.01;
+#!/usr/bin/perl -w
 # -----------------------------------------------------------------------------
 # Molecular Evolution of Protein Complexes Contact Interfaces
 # -----------------------------------------------------------------------------
@@ -34,18 +33,65 @@ sub welcome{
     
     # Welcome
     system("clear");
-    print "\n---------------------------------------\n";
-    print "\t RUNNING MECOM v$VERSION\n";
-    print " Hector Valverde and Juan Carlos Aledo\n";
-    print " \tUniversity of Malaga\n";
-    print "\t     May, 2013\n";
-    print "---------------------------------------\n\n";
-    print "NOTICE: This distribution is an alpha version.\n";
-    print "Unexpected errors could be dumped. Contact with\n";
-    print "authors anonymously from http://mecom.hval.es/\n\n";
-    print "Type 'mecom --help' on the command line to get\n";
-    print "a summarized manual.\n\n";
+    my $welcome = "";
     
+    $welcome.= "\n---------------------------------------\n";
+    $welcome.= "\t RUNNING MECOM v".Mecom->get_version."\n";
+    $welcome.= " Hector Valverde and Juan Carlos Aledo\n";
+    $welcome.= " \tUniversity of Malaga\n";
+    $welcome.= "\t     May, 2013\n";
+    $welcome.= "---------------------------------------\n\n";
+    $welcome.= "NOTICE: This distribution is an alpha version.\n";
+    $welcome.= "Unexpected errors could be dumped. Contact with\n";
+    $welcome.= "authors anonymously from http://mecom.hval.es/contact\n\n";
+    $welcome.= "Type 'mecom --help' on the command line to get\n";
+    $welcome.= "a summarized manual.\n\n";
+    
+    return $welcome;
+    
+}
+
+sub help{
+    
+    # Help
+    my $help;
+    $help = "\n\tMECOM HELP v".Mecom->get_version."\n\n";
+    $help.= "\t*General usage:\n";
+    $help.= "\t--------------\n\n";
+    $help.= "\t\$ mecom [--pdb <pdbfile> --contactfile <strfile>]
+            --chain <chainid> --alignment <msafile> [ --proximityth
+            <float> --exposureth <float> --exposuretherror <float>
+            --informat <msaformat> --oformat <msaformat> --gc <int>
+            --ocontact <filepath> --report <htmlpath>] [--help] [--struct]\n\n";
+    $help.= "\t*Requested Options:\n";
+    $help.= "\t------------------\n\n";
+    $help.= "\t--pdb and/or --contactfile <file>: A valid *.pdb or *.str input file\n";
+    $help.= "\t--aligment <msafile>: A valid Multiple Sequence Alignment File\n";
+    $help.= "\t--chain <X>: The analyzed chain identifier\n\n";
+    $help.= "\t*Other options:\n";
+    $help.= "\t--------------\n\n";
+    $help.= "\t(see documentation to find default values)\n\n";
+    $help.= "\t--ocontact <file>: A file path where write structural data (*.str file)\n";
+    $help.= "\t--exposureth <float num>: Exposure threshold\n";
+    $help.= "\t--exposuretherror <float num>: Exposure threshold margin\n";
+    $help.= "\t--proximityth <float num>: Proximity threshold\n";
+    $help.= "\t--informat <msaformat>: MSA format for the input file\n";
+    $help.= "\t--oformat <msaformat>: MSA format for the output alignments\n";
+    $help.= "\t--gc <int>: Genetic code\n";
+    $help.= "\t--report <htmlfile>: A file path where write the output report\n";
+    $help.= "\t--help: Show this help\n";
+    $help.= "\t--struct: Carry out just the structural analysis\n";
+    $help.= "\n\n";
+    $help.= "For further information see the full documentation at man page or";
+    $help.= " user manual at authors website: http://mecom.hval.es/manual/\n\n";
+    $help.= " Copyright 2013 Hector Valverde and Juan Carlos Aledo.\n\n";
+    $help.= " This program is free software; you can redistribute it and/or modify it";
+    $help.= " under the terms of either: the GNU General Public License as published";
+    $help.= " by the Free Software Foundation; or the Artistic License.\n";
+    $help.= " See http://dev.perl.org/licenses/ for more information.\n\n";
+    
+    
+    return $help;
 }
 
 # -----------------------------------------------------------------------------
@@ -97,16 +143,19 @@ GetOptions (                  # Getting options from command line
 #                                   #---#                                    #
 
 # -----------------------------------------------------------------------------
-# HELP                                                                Chap.  3
+# HELP and variable validation                                        Chap.  3
 # -----------------------------------------------------------------------------
 if($help){
-    print "HELP\n";
+    print help();
     exit;
 }elsif($struct){
-    welcome();
+    print welcome();
     Mecom::only_struct($pdb,$chain,$pth,$sth,$th_margin,$ocontact);
     exit;
 }
+#if(!$chain || !($pdb || $contact_file) || !$chain_alignment){
+#    die("ERROR: Any requested option is missing. Type 'mecom --help' to view how to solve it\n");
+#}
 # -----------------------------------------------------------------------------
 #                                                                            3.
 
@@ -115,7 +164,7 @@ if($help){
 # -----------------------------------------------------------------------------
 # Run program for multiple chains                                     Chap.  4
 # -----------------------------------------------------------------------------
-welcome();
+print welcome();
 my @chains = split(/ /,$chain);
 # 1. Create the objects
 my @objs_list = ();

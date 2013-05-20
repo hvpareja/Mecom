@@ -460,6 +460,7 @@ sub get_gc                 { $_[0] -> {_gc}          }
 sub get_ocontact           { $_[0] -> {_ocontact}    }
 sub get_dsspbin            { $_[0] -> {_dsspbin}     }
 sub get_report             { $_[0] -> {_report}      }
+sub get_version            { return $VERSION         }
 # Proc
 sub get_structdata         { $_[0] -> {_struct_data} }
 sub get_lists              { $_[0] -> {_lists}       }
@@ -536,7 +537,7 @@ Mecom - A Perl package for protein contact interfaces evolutive analysis
 
 =head1 VERSION
 
-Version 1.01
+Version 1.07
 
 =head1 SYNOPSIS
 
