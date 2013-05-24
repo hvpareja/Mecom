@@ -23,11 +23,6 @@
 # -----------------------------------------------------------------------------
 use Mecom;
 use Getopt::Long;
-if($ENV{PAMLDIR} eq ""){
-    die("\nThe environment variable 'PAMLDIR' is unset.
-MECOM can't find the PAML software. Try
-\nexport PAMLDIR='path/to/PAML/bin'\n\nand try again.\n")
-    }
 
 sub welcome{
     

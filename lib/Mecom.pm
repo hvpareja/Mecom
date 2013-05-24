@@ -19,16 +19,20 @@ package Mecom;
 use 5.006;
 use strict;
 no strict "refs";
-our $VERSION = '1.09';
+our $VERSION = '1.11';
 
 # Own modules
 use Mecom::Contact; 
 use Mecom::Surface;
 use Mecom::Subsets;
 use Mecom::Report;
-use Mecom::Align::Subset;         # Avaliable from CPAN
-use Mecom::EasyYang;              # Avaliable from CPAN
-use Mecom::Statistics::RatioVariance;  # Avaliable from CPAN
+use Mecom::Align::Subset;
+use Mecom::EasyYang; 
+use Mecom::Statistics::RatioVariance;
+use Mecom::Config;
+
+# PAML DIR
+$ENV{PAMLDIR} = Mecom::Config->get_pamldir;
 
 # External modules
 use Bio::Structure::Model;
@@ -38,6 +42,8 @@ use Bio::Align::Utilities qw(:all);
 use warnings;
 use Carp;
 use Bio::AlignIO;
+
+
 
 # -----------------------------------------------------------------------------
 # Class data                                                          Chap.  1
@@ -60,7 +66,7 @@ use Bio::AlignIO;
         _contactwith           => ["-"        , ""         ],
         _informat              => ["fasta"    , ""         ],
         _oformat               => ["clustalw" , ""         ],
-        _gc                    => [0          , ""         ],
+        _gc                    => ["0"        , ""         ],
         _ocontact              => ["data.str" , ""         ],
         _dsspbin               => ["dssp"     , ""         ],
         _report                => ["r.html"   , ""         ],
@@ -537,7 +543,7 @@ Mecom - A Perl module for protein contact interfaces evolutive analysis
 
 =head1 VERSION
 
-Version 1.09
+Version 1.11
 
 =head1 SYNOPSIS
 
