@@ -11,7 +11,7 @@ sub MY::constants {
    push(@m, $self->SUPER::constants(@_)); 
    push(@m, 
 	"PRGS =  baseml codeml basemlg mcmctree pamp evolver yn00 chi2\n",
-	"LIBS = -lm # -lM\n",
+	"LIBS = -lm -w # -lM\n",
 	"PAMLDIR = paml4.7/\n",
 	"SRC = \$(PAMLDIR)src/\n",
 	"BASEML = \$(SRC)baseml.c\n",
