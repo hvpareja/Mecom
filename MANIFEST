@@ -16,10 +16,7 @@ t/00-load.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
-<<<<<<< HEAD
 docs/mecom.pod
-=======
->>>>>>> fefae52a20d9f84fc6646c6e1cb0d27319cf83c5
 
 paml4.7/3s.trees
 paml4.7/4s.trees

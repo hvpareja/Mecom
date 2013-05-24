@@ -37,7 +37,6 @@ WriteMakefile(
     ABSTRACT_FROM    => 'lib/Mecom.pm',
     LICENSE          => 'Perl_5',
     EXE_FILES 	     => ['bin/mecom'],
-    # Params needed to install PAML
     MAN3PODS         => {
 	"docs/mecom.pod" => "blib/man3/mecom.3pm"
     },
