@@ -11,15 +11,9 @@ sub MY::constants {
    push(@m, $self->SUPER::constants(@_)); 
    push(@m, 
 	"PRGS =  baseml codeml basemlg mcmctree pamp evolver yn00 chi2\n",
-<<<<<<< HEAD
-	"LIBS = -lm -w # -lM\n",
-	"PAMLDIR = paml4.7\n",
-	"SRC = \$(PAMLDIR)/src/\n",
-=======
 	"LIBS = -lm # -lM\n",
 	"PAMLDIR = paml4.7/\n",
 	"SRC = \$(PAMLDIR)src/\n",
->>>>>>> fefae52a20d9f84fc6646c6e1cb0d27319cf83c5
 	"BASEML = \$(SRC)baseml.c\n",
 	"CODEML = \$(SRC)codeml.c\n",
 	"BASEMLG = \$(SRC)basemlg.c\n",
@@ -53,10 +47,6 @@ WriteMakefile(
     },
     PREREQ_PM => {
 	"Bio::Perl" => "0",
-<<<<<<< HEAD
-=======
-	"Bio::Tools::Run::Phylo::PAML::Yn00" => "0",
->>>>>>> fefae52a20d9f84fc6646c6e1cb0d27319cf83c5
 	"Carp" => "0",
 	"Getopt::Long" => "0",
 	"Number::FormatEng" => "0",
@@ -69,7 +59,6 @@ WriteMakefile(
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Mecom-*'},
-<<<<<<< HEAD
     realclean => { FILES => '$(PAMLDIR)/bin/baseml
 			    $(PAMLDIR)/bin/codeml
 			    $(PAMLDIR)/bin/basemlg
@@ -80,19 +69,7 @@ WriteMakefile(
 			    $(PAMLDIR)/bin/yn00
 			    .DS_Store'},
     depend => { '$(INST_SCRIPT)/mecom' => 'configpaml' },
-=======
-    realclean => { FILES => '$(PAMLDIR)bin/baseml
-			    $(PAMLDIR)bin/codeml
-			    $(PAMLDIR)bin/basemlg
-			    $(PAMLDIR)bin/mcmctree
-			    $(PAMLDIR)bin/pamp
-			    $(PAMLDIR)bin/evolver
-			    $(PAMLDIR)bin/chi2
-			    $(PAMLDIR)bin/yn00'},
-    depend => { '$(INST_SCRIPT)/mecom' => 'paml mvbin',
-	        #pure_install => 'installpaml'
-		},
->>>>>>> fefae52a20d9f84fc6646c6e1cb0d27319cf83c5
+
 );
 
 package MY;
@@ -119,21 +96,13 @@ yn00 : $(YN00) $(TOOLS) $(HEAD)
 	$(CC) $(CFLAGS) -o $@ $(YN00) $(TOOLS) $(LIBS)
 chi2 : $(CHI2)
 	$(CC) $(CFLAGS) -o $@ $(CHI2) $(LIBS)
-<<<<<<< HEAD
 configpaml : paml
 	$(CP) lib/Mecom/Config.bak.pm lib/Mecom/Config.pm
 	$(ECHO) "\n\nsub get_pamldir{ return \'$(INSTALLBIN)/\';}" >> lib/Mecom/Config.pm
 	$(ECHO) "\n\n1;" >> lib/Mecom/Config.pm
 	$(MV) $(PRGS) $(INST_BIN)/.
 	$(CP) -r $(PAMLDIR) $(INST_BIN)/.
-=======
-	
-mvbin : $(PRGS)
-	mv $(PRGS) $(PAMLDIR)bin/.
-	
-installpaml : all
-	cp -R $(PAMLDIR) $(INSTALLBIN)/$(PAMLDIR)
->>>>>>> fefae52a20d9f84fc6646c6e1cb0d27319cf83c5
+
 
  
 '}
