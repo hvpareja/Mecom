@@ -7,15 +7,35 @@ Mecom - A Perl program for protein contact interfaces evolutive analysis
 Version 1.12
 
 =head1 SYNOPSIS
+
+
 =head1 OPTION SUMMARY
+
+
 =head1 OUTPUT
+
+
 =head1 DATA PREPARATION
+
+
 =head1 CONTACT FILE
+
+
 =head1 GENETIC CODES
+
+
 =head1 MSA VALID FORMATS
+
+
 =head1 SINGLE SUBUNIT ANALYSIS EXAMPLES
+
+
 =head1 MULTIPLE SUBUNITS ANALYSIS EXAMPLE
+
+
 =head1 OTHER EXAMPLES
+
+
 =head1 AUTHOR - Hector Valverde
 
 Hector Valverde, C<< <hvalverde@uma.es> >>
@@ -39,10 +59,6 @@ I will be notified, and then you'll automatically be notified of progress on you
 Further information about this project is available at:
 
     http://mecom.hval.es/
-
-You can find this docs for this module with the UNIX man command.
-
-    man Mecom
 
 
 =head1 LICENSE AND COPYRIGHT
