@@ -409,40 +409,4 @@ sub only_struct{
 
 1;
 
-__END__
-
-=head1 NAME
-
-Mecom - Molecular Evolution for protein COMplexes
-
-=head1 VERSION
-
-Version 1.08
-
-=head1 SYNOPSIS
-
-MECOM is a Perl program which implements a work flow to analyze the evolutive behaviour of different regions within a protein structure.
-
-=head1 Support
-
-This program, documentation, user manual and usage examples are available at:
-
-    http://mecom.hval.es/
-
-You can find documentation for this module with the UNIX man command.
-
-    man mecom
-
-=head1 License and copyrigth
-
-Copyright 2013 Hector Valverde and Juan Carlos Aledo.
-
-This program is free software; you can redistribute it and/or modify it under the terms
-of either: the GNU General Public License as published by the Free Software Foundation;
-or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
-
-=cut
-
 

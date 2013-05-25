@@ -1,4 +1,5 @@
 bin/mecom
+bin/dssp
 lib/Mecom.pm
 lib/Mecom/Align/Subset.pm
 lib/Mecom/Contact.pm

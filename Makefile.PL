@@ -36,9 +36,12 @@ WriteMakefile(
     VERSION_FROM     => 'lib/Mecom.pm',
     ABSTRACT_FROM    => 'lib/Mecom.pm',
     LICENSE          => 'Perl_5',
-    EXE_FILES 	     => ['bin/mecom'],
+    EXE_FILES 	     => ['bin/mecom', 'bin/dssp'],
     MAN3PODS         => {
 	"docs/mecom.pod" => "blib/man3/mecom.3pm"
+    },
+    MAN3PODS         => {
+	"docs/mecom.pod" => "blib/man1/mecom.1"
     },
     MIN_PERL_VERSION => 5.006,
     CONFIGURE_REQUIRES => {
@@ -58,15 +61,7 @@ WriteMakefile(
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Mecom-*'},
-    realclean => { FILES => '$(PAMLDIR)/bin/baseml
-			    $(PAMLDIR)/bin/codeml
-			    $(PAMLDIR)/bin/basemlg
-			    $(PAMLDIR)/bin/mcmctree
-			    $(PAMLDIR)/bin/pamp
-			    $(PAMLDIR)/bin/evolver
-			    $(PAMLDIR)/bin/chi2
-			    $(PAMLDIR)/bin/yn00
-			    .DS_Store'},
+    realclean => { FILES => '*/.DS_Store'},
     depend => { '$(INST_SCRIPT)/mecom' => 'configpaml' },
 
 );
