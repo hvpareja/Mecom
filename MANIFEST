@@ -3,13 +3,12 @@ bin/dssp
 lib/Mecom.pm
 lib/Mecom/Align/Subset.pm
 lib/Mecom/Contact.pm
+lib/Mecom/Config.bak.pm
 lib/Mecom/EasyYang.pm
 lib/Mecom/Report.pm
 lib/Mecom/Statistics/RatioVariance.pm
 lib/Mecom/Subsets.pm
 lib/Mecom/Surface.pm
-lib/Mecom/Bio/Tools/Run/Phylo/PAML/Yn00.pm
-lib/Mecom/Bio/Tools/Run/WrapperBase.pm
 Makefile.PL
 MANIFEST			This list of files
 README

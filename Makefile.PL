@@ -55,6 +55,7 @@ WriteMakefile(
 	"Statistics::Basic" => "0",
 	"Statistics::Zed" => "0",
 	"IPC::Run" => "0",
+	"Bio::Tools::Run::Phylo::PAML::Yn00" => "0"
     },
     BUILD_REQUIRES => {
         'Test::More' => 0,
