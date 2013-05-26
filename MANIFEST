@@ -4,6 +4,7 @@ lib/Mecom.pm
 lib/Mecom/Align/Subset.pm
 lib/Mecom/Contact.pm
 lib/Mecom/Config.bak.pm
+lib/Mecom/Config.pm
 lib/Mecom/EasyYang.pm
 lib/Mecom/Report.pm
 lib/Mecom/Statistics/RatioVariance.pm

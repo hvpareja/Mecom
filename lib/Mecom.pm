@@ -19,7 +19,7 @@ package Mecom;
 use 5.006;
 use strict;
 no strict "refs";
-our $VERSION = '1.13';
+our $VERSION = '1.14';
 
 # Own modules
 use Mecom::Contact; 
