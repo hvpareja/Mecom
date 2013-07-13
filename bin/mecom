@@ -173,7 +173,6 @@ if($#chains > 0){
     }
     
     for (my $i=0;$i<scalar(@chains);$i++){
-        
         #print $alignments[$i]."\n";
         my $new_obj = Mecom->new(
                                     pdb         => $pdb,

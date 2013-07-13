@@ -45,10 +45,15 @@ sub calc{
     my $correlation = correlation($xvector, $yvector);
     
     # Calculates the cocient
-    my $cocient = $xmean/$ymean;  
+    my $cocient = 0;
+    my $first_term = 0;
+    if($ymean != 0){
+       # print $ymean."\n";
+        $cocient = $xmean/$ymean;
+        # Calculates the variance (STEP-BY-STEP)
+        $first_term = 1/($ymean*$ymean);
+    }
     
-    # Calculates the variance (STEP-BY-STEP)
-    my $first_term = 1/($ymean*$ymean);
     
     my $second_term_first_term = $kxvariance;
     my $second_term_second_term = ($cocient*$cocient)*$kyvariance;

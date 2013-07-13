@@ -19,7 +19,7 @@ package Mecom;
 use 5.006;
 use strict;
 no strict "refs";
-our $VERSION = '1.14';
+our $VERSION = '1.15';
 
 # Own modules
 use Mecom::Contact; 
@@ -261,7 +261,7 @@ sub _run_surface{
     @structural_info = @dssp;
     
     # Save this data (save time for further analisys)
-    open OCONTACT, ">".$self->get_ocontact();
+    open OCONTACT, ">".$self->get_ocontact;
     foreach my $line (@dssp){
         print OCONTACT $line."\n";
     }
@@ -343,8 +343,9 @@ sub run_stats1{
     my $self = $_[0];
     my %paml_results = %{$self->get_pamlres};
     my %results;
+    my %paml_results_other = %paml_results;
     foreach my $category (keys %paml_results){
-        foreach my $other (keys %paml_results){
+        foreach my $other (keys %paml_results_other){
             if($other ne $category){
                 
                 my ($x,$y,$var_x,$var_y) = ($paml_results{$category}{dN},
@@ -355,13 +356,27 @@ sub run_stats1{
                 my @y = @$y;
                 my @var_x = @$var_x;
                 my @var_y = @$var_y;
+                
+               
+                # Edit data set to get the same rows in each column
+                while(scalar(@x) > scalar(@y)){
+                   my $void = pop(@x);
+                   my $var_void = pop(@var_x);
+                }
+                
+                while(scalar(@y) > scalar(@x)){
+                   my $void = pop(@y);
+                   my $var_void = pop(@var_y);
+                }
+                
+                
                 if($#x == $#y){
                 #print $#x." -- ".$#y."\n";
                     $results{$category." vs ".$other} =
-                                        {Mecom::Statistics::RatioVariance->calc($x,
-                                                                        $y,
-                                                                        $var_x,
-                                                                        $var_y
+                                        {Mecom::Statistics::RatioVariance->calc(\@x,
+                                                                        \@y,
+                                                                        \@var_x,
+                                                                        \@var_y
                                                                         )};
                 }
             }

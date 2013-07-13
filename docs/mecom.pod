@@ -4,7 +4,7 @@ Mecom - A Perl program for protein contact interfaces evolutive analysis
 
 =head1 VERSION
 
-Version 1.14
+Version 1.15
 
 =head1 INTRODUCTION
 

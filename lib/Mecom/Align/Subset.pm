@@ -156,6 +156,9 @@ sub build_subset{
     for(my $i=0;$i<=$#identifiers;$i++){
         
         my $id = substr($identifiers[$i],0,9);
+        
+        #my $iden_plus_num = $id;
+        # $i is for my self identifier adding, but it is bad for merge alignments
         my $iden_plus_num = $i.$id;
         
         # Create such object
